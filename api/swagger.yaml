@@ -1,0 +1,241 @@
+---
+swagger: "2.0"
+info:
+  description: "TGS test"
+  version: "1.0.0"
+  title: "TGS test"
+  termsOfService: "http://swagger.io/terms/"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "tgstest.herokuapp.com"
+basePath: "/api"
+tags:
+- name: "Auth"
+  description: "Users Auth "
+- name: "Rides"
+  description: "Rides"
+schemes:
+- "https"
+- "http"
+paths:
+  /login:
+    post:
+      tags:
+      - "Auth"
+      summary: "Logs the user in"
+      description: ""
+      operationId: "login"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "User Data"
+        required: true
+        schema:
+          $ref: "#/definitions/Login"
+      responses:
+        "200":
+          description: "Successfull operation"
+        "400":
+          description: "Bad Request"
+        "401":
+          description: "Unauthorized"
+      x-swagger-router-controller: "Auth"
+  /register:
+    post:
+      tags:
+      - "Auth"
+      summary: "Register a user"
+      operationId: "register"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "User Data"
+        required: true
+        schema:
+          $ref: "#/definitions/Register"
+      responses:
+        "200":
+          description: "Successfull operation"
+        "400":
+          description: "Bad Request"
+        "401":
+          description: "Unauthorized"
+      x-swagger-router-controller: "Auth"
+  /rides/search:
+    post:
+      tags:
+      - "Rides"
+      summary: "Search A ride"
+      operationId: "searchRide"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Ride Data"
+        required: true
+        schema:
+          $ref: "#/definitions/Ride"
+      responses:
+        "200":
+          description: "Successfull operation"
+        "400":
+          description: "Bad Request"
+        "401":
+          description: "Unauthorized"
+      x-swagger-router-controller: "Rides"
+  /rides/price:
+    post:
+      tags:
+      - "Rides"
+      summary: "Get Rides Prices"
+      operationId: "getRidePrices"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Ride Data"
+        required: true
+        schema:
+          $ref: "#/definitions/Ride"
+      responses:
+        "200":
+          description: "Successfull operation"
+        "400":
+          description: "Bad Request"
+        "401":
+          description: "Unauthorized"
+      x-swagger-router-controller: "Rides"
+  /rides/time:
+    post:
+      tags:
+      - "Rides"
+      summary: "Get Rides Waiting Time"
+      operationId: "getRideWaitingTime"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Ride Data"
+        required: true
+        schema:
+          $ref: "#/definitions/Ride"
+      responses:
+        "200":
+          description: "Successfull operation"
+        "400":
+          description: "Bad Request"
+        "401":
+          description: "Unauthorized"
+      x-swagger-router-controller: "Rides"
+definitions:
+  Register:
+    type: "object"
+    properties:
+      firstName:
+        type: "string"
+      lastName:
+        type: "string"
+      birthDate:
+        type: "string"
+        format: "date"
+      phoneNumber:
+        type: "string"
+      email:
+        type: "string"
+      isPhoneNumberVerified:
+        type: "boolean"
+      country:
+        type: "string"
+    example:
+      firstName: "firstName"
+      lastName: "lastName"
+      country: "country"
+      phoneNumber: "phoneNumber"
+      birthDate: "2000-01-23"
+      email: "email"
+      isPhoneNumberVerified: true
+  Login:
+    type: "object"
+    properties:
+      email:
+        type: "string"
+      phoneNumber:
+        type: "string"
+    example:
+      phoneNumber: "phoneNumber"
+      email: "email"
+  Ride:
+    type: "object"
+    properties:
+      startLatitude:
+        type: "string"
+      startLongitude:
+        type: "string"
+      endLatitude:
+        type: "string"
+      endLongitude:
+        type: "string"
+      startFullAddress:
+        type: "string"
+      startZipCode:
+        type: "string"
+      endFullAddress:
+        type: "string"
+      filterBy:
+        type: "object"
+        properties: {}
+      sort:
+        type: "object"
+        properties: {}
+    example:
+      startZipCode: "startZipCode"
+      startLatitude: "startLatitude"
+      endFullAddress: "endFullAddress"
+      startFullAddress: "startFullAddress"
+      endLongitude: "endLongitude"
+      sort: "{}"
+      startLongitude: "startLongitude"
+      filterBy: "{}"
+      endLatitude: "endLatitude"
+  ApiResponse:
+    type: "object"
+    properties:
+      statusCode:
+        type: "integer"
+        format: "int32"
+      data:
+        type: "object"
+        properties: {}
+      message:
+        type: "string"
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
